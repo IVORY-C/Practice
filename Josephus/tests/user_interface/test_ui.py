@@ -1,38 +1,42 @@
-from PySide2.QtWidgets import QApplication, QMessageBox
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import QFile
+from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
 
-from main.shared import base_class as bc
-from main.use_cases import josephus as jsp
-
-class test_ui(object):
+class test_ui():
     def __init__(self):
-        self.ui = QUiLoader().load('main_window.ui')
+        self.window = QMainWindow()
+        self.window.resize(500, 400)
+        self.window.move(300, 300)
+        self.window.setWindowTitle('Josephus')
 
-        self.ui.input_people_button.clicked.connect(self.handleCalc)
+        self.textEdit = QPlainTextEdit(self.window)
+        self.textEdit.setPlaceholderText("Please input people")
+        self.textEdit.move(10, 25)
+        self.textEdit.resize(300, 350)
 
-    def handleCalc(self):
-        info = self.ui.people_text.toPlainText()
+        self.button = QPushButton('Result', self.window)
+        self.button.move(380, 80)
 
-        reader = []
+        self.button.clicked.connect(self.handle_button)
+
+
+    def handle_button(self):
+        info = self.textEdit.toPlainText()
+
+        result = ''
         for line in info.splitlines():
             if not line.strip():
                 continue
             data = line.split(',')
-            name = data[0]
-            age = data[1]
-            gender = data[2]
-            reader.append(Person(name, age, gender))
+            result += data[0] + '\n'
+            
 
-        ring = jsp.Ring(reader)
-        result = ''
-        for item in ring:
-            data_str = 
+        QMessageBox.about(self.window, 'Result' , result)
 
-        QMessageBox.about(self.ui,
-                    '出列顺序',
-                    f'''薪资20000 以上的有：\n{salary_above_20k}
-                    \n薪资20000 以下的有：\n{salary_below_20k}'''
-                    )
+app = QApplication([])
+stats = test_ui()
+stats.window.show()
+app.exec_()
+
+
+
 
 
