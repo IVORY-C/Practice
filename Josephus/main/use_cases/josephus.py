@@ -36,8 +36,8 @@ class Ring:
 
     def __next__(self):
         if self._temp:
-            self._id = (self._id + self.step - 1) % len(self.temp)
-            out = self.temp.pop(self._id)
+            self._id = (self._id + self.step - 1) % len(self._temp)
+            out = self._temp.pop(self._id)
             return out
         raise StopIteration()
    
