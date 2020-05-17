@@ -86,7 +86,3 @@ class test_ui():
 
         QMessageBox.about(self.window, 'Result' , result_str)
 
-app = QApplication([])
-stats = test_ui()
-stats.window.show()
-app.exec_()
