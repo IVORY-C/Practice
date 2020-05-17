@@ -47,16 +47,19 @@ class test_ui():
         step = self.step_text.toPlainText()
 
         result = ''
-        for line in people.splitlines():
-            if not line.strip():
-                continue
-            data = line.split(',')
-            result += data[0] + '\n'
+        if people:
+            for line in people.splitlines():
+                if not line.strip():
+                    continue
+                data = line.split(',')
+                result += data[0] + '\n'
+        else:
+            result = 'No data input'
             
 
         QMessageBox.about(self.window, 
                     'Result' , 
-                    f"{result}\n start: {start}\n step: {step}")
+                    f"The result is:\n{result}\n start: {start}\n step: {step}")
 
 
 app = QApplication([])

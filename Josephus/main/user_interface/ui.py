@@ -61,7 +61,7 @@ class test_ui():
                 gender = data[2]
                 reader.append(bc.Person(name, age, gender))
 
-        else:
+        else :
             file_type = file_name.split('.')[1]
             if file_name == 'txt':
                 file_reader = rd.TxtReader(path)
@@ -72,6 +72,7 @@ class test_ui():
             else:
                 raise(ValueError)
             reader = zipreader.create_person_from_file()
+
             
         ring = jsp.Ring(reader)
         ring.reset()
