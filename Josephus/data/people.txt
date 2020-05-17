@@ -1,5 +1,5 @@
-Morty, 12, 男
-Rick, 53, 男
-Summer, 16, 女
-Beth, 34, 女
-Jerry, 36, 男
+Morty, 12, male
+Rick, 53, male
+Summer, 16, female
+Beth, 34, female
+Jerry, 36, male
