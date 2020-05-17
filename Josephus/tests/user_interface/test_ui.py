@@ -1,3 +1,6 @@
+from main.use_cases import josephus as jsp
+from main.adapter import readers as rd
+
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
 
 class test_ui():
@@ -10,7 +13,7 @@ class test_ui():
         self.people_text = QPlainTextEdit(self.window)
         self.people_text.setPlaceholderText("Please input people")
         self.people_text.move(10, 25)
-        self.people_text.resize(300, 350)
+        self.people_text.resize(300, 150)
 
         self.start_text = QPlainTextEdit(self.window)
         self.start_text.setPlaceholderText("Please input start number")
@@ -22,6 +25,16 @@ class test_ui():
         self.step_text.move(330, 150)
         self.step_text.resize(150, 100)
 
+        self.path_text = QPlainTextEdit(self.window)
+        self.path_text.setPlaceholderText("Please input path")
+        self.path_text.move(10, 200)
+        self.path_text.resize(300, 80)
+
+        self.file_name_text = QPlainTextEdit(self.window)
+        self.file_name_text.setPlaceholderText("Please input file name")
+        self.file_name_text.move(10, 300)
+        self.file_name_text.resize(300, 80)
+
         self.button = QPushButton('Result', self.window)
         self.button.move(350, 300)
 
@@ -29,17 +42,22 @@ class test_ui():
 
 
     def handle_button(self):
-        info = self.people_text.toPlainText()
+        people = self.people_text.toPlainText()
+        start = self.start_text.toPlainText()
+        step = self.step_text.toPlainText()
 
         result = ''
-        for line in info.splitlines():
+        for line in people.splitlines():
             if not line.strip():
                 continue
             data = line.split(',')
             result += data[0] + '\n'
             
 
-        QMessageBox.about(self.window, 'Result' , result)
+        QMessageBox.about(self.window, 
+                    'Result' , 
+                    f"{result}\n start: {start}\n step: {step}")
+
 
 app = QApplication([])
 stats = test_ui()
