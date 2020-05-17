@@ -1,18 +1,18 @@
 from main.shared import reader as rd
 from main.shared import base_class as bc
+from typing import List
 
 import csv
 import os
 import zipfile
 
 
-
 class TxtReader(rd.Reader):
-    def __init__(self, path):
+    def __init__(self, path: str) -> None:
         self.file = open(path, 'r', encoding='utf-8')
         self._all_data = self.file.readlines()
 
-    def create_person_from_file(self):
+    def create_person_from_file(self) -> List[bc.Person]:
         people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
@@ -26,18 +26,18 @@ class TxtReader(rd.Reader):
 
         return people   
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._all_data)
 
-    def close_file(self):
+    def close_file(self) -> None:
         self.file.close()
         
 class CsvReader(rd.Reader):
-    def __init__(self, path):
+    def __init__(self, path: str) -> None:
         self.file = open(path, 'r', encoding='gbk')
         self._all_data = self.file.readlines()
 
-    def create_person_from_file(self):
+    def create_person_from_file(self) -> List[bc.Person]:
         people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
@@ -51,14 +51,14 @@ class CsvReader(rd.Reader):
             
         return people  
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._all_data)
 
-    def close_file(self):
+    def close_file(self) -> None:
         self.file.close()
 
 class ZipReader(rd.Reader):
-    def __init__(self, path, file_name):
+    def __init__(self, path: str, file_name: str) -> None:
         with zipfile.ZipFile(path, 'r') as zip_file:
             file_list = zip_file.namelist()
             if file_name not in file_list:
@@ -74,7 +74,7 @@ class ZipReader(rd.Reader):
             self.file = open(file_path, 'r', encoding = encode_standard)
             self._all_data = self.file.readlines()
 
-    def create_person_from_file(self):
+    def create_person_from_file(self) -> List[bc.Person]:
         people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
@@ -88,8 +88,8 @@ class ZipReader(rd.Reader):
 
         return people   
             
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._all_data)
 
-    def close_file(self):
+    def close_file(self) -> None:
         self.file.close()
