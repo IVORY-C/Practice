@@ -52,7 +52,8 @@ class test_ui():
                 if not line.strip():
                     continue
                 data = line.split(',')
-                result += data[0] + '\n'
+                data_str = f"Name: {data[0]}, Age: {data[1]}, Gender: {data[2]}"
+                result += data_str + '\n'
         else:
             result = 'No data input'
             
@@ -62,10 +63,11 @@ class test_ui():
                     f"The result is:\n{result}\n start: {start}\n step: {step}")
 
 
-app = QApplication([])
-stats = test_ui()
-stats.window.show()
-app.exec_()
+def test_ui_input_and_show_data():
+    app = QApplication([])
+    stats = test_ui()
+    stats.window.show()
+    app.exec_()
 
 
 
