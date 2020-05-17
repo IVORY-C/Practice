@@ -1,5 +1,5 @@
-from shared import serializers as srlz
-from shared import base_class as bc
+from main.shared import reader as rd
+from main.shared import base_class as bc
 
 import csv
 import os
@@ -7,7 +7,7 @@ import zipfile
 
 
 
-class TxtReader(srlz.Reader):
+class TxtReader(rd.Reader):
     def __init__(self, path):
         self.file = open(path, 'r', encoding='utf-8')
         self._all_data = self.file.readlines()
@@ -20,7 +20,7 @@ class TxtReader(srlz.Reader):
             try:
                 age = int(data[1])
             except ValueError as e:
-                age = 'ValueError'
+                age = -2
             gender = data[2]
             people.append(bc.Person(name, age, gender))
 
@@ -32,7 +32,7 @@ class TxtReader(srlz.Reader):
     def close_file(self):
         self.file.close()
         
-class CsvReader(srlz.Reader):
+class CsvReader(rd.Reader):
     def __init__(self, path):
         self.file = open(path, 'r', encoding='gbk')
         self._all_data = self.file.readlines()
@@ -45,7 +45,7 @@ class CsvReader(srlz.Reader):
             try:
                 age = int(data[1])
             except ValueError as e:
-                age = -1
+                age = -2
             gender = data[2]
             people.append(bc.Person(name, age, gender))
             
@@ -57,7 +57,7 @@ class CsvReader(srlz.Reader):
     def close_file(self):
         self.file.close()
 
-class ZipReader(srlz.Reader):
+class ZipReader(rd.Reader):
     def __init__(self, path, file_name):
         with zipfile.ZipFile(path, 'r') as zip_file:
             file_list = zip_file.namelist()
@@ -75,15 +75,18 @@ class ZipReader(srlz.Reader):
             self._all_data = self.file.readlines()
 
     def create_person_from_file(self):
+        people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
             name = data[0]
             try:
                 age = int(data[1])
             except ValueError as e:
-                age = 'ValueError'
+                age = -2
             gender = data[2]
-            yield Person(name, age, gender)
+            people.append(bc.Person(name, age, gender))
+
+        return people   
             
     def __len__(self):
         return len(self._all_data)
