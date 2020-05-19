@@ -45,6 +45,8 @@ class test_ui():
         people = self.people_text.toPlainText()
         start = self.start_text.toPlainText()
         step = self.step_text.toPlainText()
+        path = self.path_text.toPlainText()
+        file_name = self.file_name_text.toPlainText()
 
         result = ''
         if people:
@@ -53,6 +55,20 @@ class test_ui():
                     continue
                 data = line.split(',')
                 data_str = f"Name: {data[0]}, Age: {data[1]}, Gender: {data[2]}"
+                result += data_str + '\n'
+
+        elif path:
+            file_type = file_name.split('.')[1]
+            if file_type == 'txt':
+                file_reader = rds.TxtReader(path)
+            if file_type == 'csv':
+                file_reader = rds.CsvReader(path)
+            if file_type == 'zip':
+                file_reader = rds.ZipReader(path)
+                
+            reader = file_reader.create_person_from_file()
+            for each in reader:
+                data_str = f"Name: {each.name}, Age: {each.age}, Gender: {each.gender}"
                 result += data_str + '\n'
         else:
             result = 'No data input'
