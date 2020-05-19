@@ -1,5 +1,5 @@
 from main.use_cases import josephus as jsp
-from main.adapter import readers as rd
+from main.adapter import readers as rds
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
 
@@ -57,7 +57,7 @@ class test_ui():
                 data_str = f"Name: {data[0]}, Age: {data[1]}, Gender: {data[2]}"
                 result += data_str + '\n'
 
-        elif path:
+        if path:
             file_type = file_name.split('.')[1]
             if file_type == 'txt':
                 file_reader = rds.TxtReader(path)
@@ -65,7 +65,7 @@ class test_ui():
                 file_reader = rds.CsvReader(path)
             if file_type == 'zip':
                 file_reader = rds.ZipReader(path)
-                
+
             reader = file_reader.create_person_from_file()
             for each in reader:
                 data_str = f"Name: {each.name}, Age: {each.age}, Gender: {each.gender}"
