@@ -1,7 +1,9 @@
 from main.use_cases import josephus as jsp
 from main.adapter import readers as rds
+from main.shared import base_class as bc
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
+from typing import List
 
 class test_ui():
     def __init__(self):
@@ -48,15 +50,18 @@ class test_ui():
         path = self.path_text.toPlainText()
         file_name = self.file_name_text.toPlainText()
 
-        result = ''
+        reader = []
+        result_str = ''
         if people:
             for line in people.splitlines():
                 if not line.strip():
                     continue
                 data = line.split(',')
-                data_str = f"Name: {data[0]}, Age: {data[1]}, Gender: {data[2]}"
-                result += data_str + '\n'
-
+                name = data[0]
+                age = int(data[1])
+                gender = data[2]
+                reader.append(bc.Person(name, age, gender)) 
+                
         if path:
             file_type = file_name.split('.')[1]
             if file_type == 'txt':
@@ -64,19 +69,27 @@ class test_ui():
             if file_type == 'csv':
                 file_reader = rds.CsvReader(path)
             if file_type == 'zip':
-                file_reader = rds.ZipReader(path)
+                file_reader = rds.ZipReader(path, file_name)
 
             reader = file_reader.create_person_from_file()
-            for each in reader:
-                data_str = f"Name: {each.name}, Age: {each.age}, Gender: {each.gender}"
-                result += data_str + '\n'
+
+        if reader:
+            ring = jsp.Ring(reader)
+            ring.start = int(start)
+            ring.step = int(step)
+            ring.reset()
+
+            result_str = ''
+            for item in ring:
+                item_str = f"Name:{item.name}, Age:{item.age}, Gender:{item.gender}"
+                result_str += item_str + '\n'            
+        
         else:
-            result = 'No data input'
-            
+            result_str = 'No data input'
 
         QMessageBox.about(self.window, 
                     'Result' , 
-                    f"The result is:\n{result}\n start: {start}\n step: {step}")
+                    f"The result is:\n{result_str}\n start: {start}\n step: {step}")
 
 
 def test_ui_input_and_show_data():
