@@ -53,32 +53,36 @@ def input_str(stdscr, input_note: str, start_x: int, start_y: int, size_x: int, 
     return info
 
 if __name__ == '__main__':
+    set_win()
+    people_text = input_str(stdscr, 'data(separate with:";")', 0, 1, 100, 5)
+    path = input_str(stdscr, 'path', 0, 7, 100, 2).strip()
+    file_name = input_str(stdscr, 'file_name', 0, 10, 100, 2).strip()
     try:
-        set_win()
-        people_text = input_str(stdscr, 'data', 0, 1, 100, 5)
-        path = input_str(stdscr, 'path', 0, 7, 100, 2).strip()
-        file_name = input_str(stdscr, 'file_name', 0, 10, 100, 2).strip()
-        start = input_str(stdscr, 'start', 0, 13, 100, 2).strip()
-        step = input_str(stdscr, 'step', 0, 16, 100, 2).strip()
+        start = int(input_str(stdscr, 'start(int)', 0, 13, 100, 2).strip())
+        step = int(input_str(stdscr, 'step(int)', 0, 16, 100, 2).strip())
+    except ValueError as e:
+        raise ValueError('Start and step must be integer!')
 
-        reader = []
-        result_str = ''
-        if people_text:
-            people_str: List[str] = people_text.split(';')
-            for each in people_str:
-                if not each:
-                    continue 
-                data = each.replace(' ','').strip().split(',')
-                name: str = data[0]
-                try:
-                    age = int(data[1])
-                except:
-                    age = -1
-                gender: str = data[2]
-                reader.append(bc.Person(name, age, gender))
+    reader = []
+    result_str = ''
+    if people_text:
+        people_str: List[str] = people_text.split(';')
+        for each in people_str:
+            if not each:
+                continue 
+            data = each.replace(' ','').strip().split(',')
+            name: str = data[0]
+            try:
+                age = int(data[1])
+            except:
+                age = -1
+            gender: str = data[2]
+            reader.append(bc.Person(name, age, gender))
 
-        if path:
+    if path:
+        try:
             file_type = file_name.split('.')[1]
+
             if file_type == 'txt':
                 file_reader = rds.TxtReader(path)
             if file_type == 'csv':
@@ -86,25 +90,25 @@ if __name__ == '__main__':
             if file_type == 'zip':
                 file_reader = rds.ZipReader(path, file_name)
 
-            reader = file_reader.create_person_from_file()
+                reader = file_reader.create_person_from_file()
+        except ValueError as e:
+            raise ValueError('Input incorrect path or file_name!')
 
-        if reader:
-            ring = jsp.Ring(reader)
-            ring.start = int(start)
-            ring.step = int(step)
-            ring.reset()
+    if reader:
+        ring = jsp.Ring(reader)
+        ring.start = start
+        ring.step = step
+        ring.reset()
 
-            for item in ring:
-                item_str = f"{item.name},{item.age},{item.gender}"
-                result_str += "{" + item_str + '}; '            
-        
-        else:
-            result_str = 'No data input'
+        for item in ring:
+            item_str = f"{item.name},{item.age},{item.gender}"
+            result_str += "{" + item_str + '}; '            
+    
+    else:
+        result_str = 'No data input'
 
-        stdscr.addstr(20, 0, f"The result is:\n{result_str}")
-        # display_info('Press any key to continue...',0,34)
-        get_ch_and_continue()
-    except Exception as e:
-        raise e
-    finally:
-        unset_win()
+    stdscr.addstr(20, 0, f"The result is:\n{result_str}")
+    display_info('Press any key to continue...',0,29)
+    
+    get_ch_and_continue()
+    unset_win()
