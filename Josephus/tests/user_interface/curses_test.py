@@ -91,7 +91,7 @@ if __name__ == '__main__':
                 file_reader = rds.ZipReader(path, file_name)
 
                 reader = file_reader.create_person_from_file()
-        except ValueError as e:
+        except:
             raise ValueError('Input incorrect path or file_name!')
 
     if reader:
