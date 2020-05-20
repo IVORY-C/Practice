@@ -62,15 +62,19 @@ if __name__ == '__main__':
         step = input_str(stdscr, 'step', 0, 16, 100, 2).strip()
 
         reader = []
+        result_str = ''
         if people_text:
             people_str: List[str] = people_text.split(';')
             for each in people_str:
                 if not each:
                     continue 
-                data: List[str] = each.split(',')
-                name = data[0]
-                age = int(data[1])
-                gender = data[2]
+                data = each.replace(' ','').strip().split(',')
+                name: str = data[0]
+                try:
+                    age = int(data[1])
+                except:
+                    age = -1
+                gender: str = data[2]
                 reader.append(bc.Person(name, age, gender))
 
         if path:
@@ -90,7 +94,6 @@ if __name__ == '__main__':
             ring.step = int(step)
             ring.reset()
 
-            result_str = ''
             for item in ring:
                 item_str = f"{item.name},{item.age},{item.gender}"
                 result_str += "{" + item_str + '}; '            
@@ -98,7 +101,7 @@ if __name__ == '__main__':
         else:
             result_str = 'No data input'
 
-        stdscr.addstr(30, 0, result_str)
+        stdscr.addstr(20, 0, f"The result is:\n{result_str}")
         # display_info('Press any key to continue...',0,34)
         get_ch_and_continue()
     except Exception as e:
