@@ -41,7 +41,7 @@ def unset_win():
     curses.echo()
     curses.endwin()
 
-def input_str(stdscr, input_note: str, start_x: int, start_y: int, size_x: int, size_y: int):
+def create_input_str_area(stdscr, input_note: str, start_x: int, start_y: int, size_x: int, size_y: int) -> str:
     stdscr.addstr(start_y, start_x, f"Enter {input_note}: (hit Ctrl-G to send)")
 
     editwin = curses.newwin(size_y, size_x, start_y+1, start_x+1)
@@ -54,12 +54,12 @@ def input_str(stdscr, input_note: str, start_x: int, start_y: int, size_x: int, 
 
 if __name__ == '__main__':
     set_win()
-    people_text = input_str(stdscr, 'data(separate with:";")', 0, 1, 100, 5)
-    path = input_str(stdscr, 'path', 0, 7, 100, 2).strip()
-    file_name = input_str(stdscr, 'file_name', 0, 10, 100, 2).strip()
+    people_text = create_input_str_area(stdscr, 'data(separate with:";")', 0, 1, 100, 5)
+    path = create_input_str_area(stdscr, 'path', 0, 7, 100, 2).strip()
+    file_name = create_input_str_area(stdscr, 'file_name', 0, 10, 100, 2).strip()
     try:
-        start = int(input_str(stdscr, 'start(int)', 0, 13, 100, 2).strip())
-        step = int(input_str(stdscr, 'step(int)', 0, 16, 100, 2).strip())
+        start = int(create_input_str_area(stdscr, 'start(int)', 0, 13, 100, 2).strip())
+        step = int(create_input_str_area(stdscr, 'step(int)', 0, 16, 100, 2).strip())
     except ValueError as e:
         raise ValueError('Start and step must be integer!')
 
