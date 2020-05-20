@@ -54,7 +54,7 @@ def create_input_str_area(stdscr, input_note: str, start_x: int, start_y: int, s
 
 if __name__ == '__main__':
     set_win()
-    people_text = create_input_str_area(stdscr, 'data(separate with:";")', 0, 1, 100, 5)
+    people_text = create_input_str_area(stdscr, 'data of people(separate with:";")', 0, 1, 100, 5)
     path = create_input_str_area(stdscr, 'path', 0, 7, 100, 2).strip()
     file_name = create_input_str_area(stdscr, 'file_name', 0, 10, 100, 2).strip()
     try:
@@ -67,18 +67,21 @@ if __name__ == '__main__':
     result_str = ''
 
     if people_text:
-        people_str: List[str] = people_text.split(';')
-        for each in people_str:
-            if not each:
-                continue 
-            data = each.replace(' ','').strip().split(',')
-            name: str = data[0]
-            try:
-                age = int(data[1])
-            except:
-                age = -1
-            gender: str = data[2]
-            reader.append(bc.Person(name, age, gender))
+        try:
+            people_str: List[str] = people_text.split(';')
+            for each in people_str:
+                if not each:
+                    continue 
+                data = each.replace(' ','').strip().split(',')
+                name: str = data[0]
+                try:
+                    age = int(data[1])
+                except:
+                    age = -1
+                gender: str = data[2]
+                reader.append(bc.Person(name, age, gender))
+        except:
+            raise ValueError('Input incorrect data of people!')
 
     if path:
         try:
