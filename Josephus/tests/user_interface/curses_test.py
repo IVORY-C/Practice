@@ -55,11 +55,11 @@ def input_str(stdscr, input_note: str, start_x: int, start_y: int, size_x: int, 
 if __name__ == '__main__':
     try:
         set_win()
-        people_text = input_str(stdscr, 'data', 0, 1, 30, 5)
-        path = input_str(stdscr, 'path', 0, 12, 30, 2).strip()
-        file_name = input_str(stdscr, 'file_name', 0, 16, 30, 2).strip()
-        start = input_str(stdscr, 'start', 0, 20, 30, 2).strip()
-        step = input_str(stdscr, 'step', 0, 24, 30, 2).strip()
+        people_text = input_str(stdscr, 'data', 0, 1, 100, 5)
+        path = input_str(stdscr, 'path', 0, 7, 100, 2).strip()
+        file_name = input_str(stdscr, 'file_name', 0, 10, 100, 2).strip()
+        start = input_str(stdscr, 'start', 0, 13, 100, 2).strip()
+        step = input_str(stdscr, 'step', 0, 16, 100, 2).strip()
 
         reader = []
         if people_text:
