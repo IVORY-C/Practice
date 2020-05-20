@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
         reader = []
         if people_text:
-            people_str: List[str] = people_text.split('\n')
+            people_str: List[str] = people_text.split(';')
             for each in people_str:
                 if not each:
                     continue 
@@ -93,7 +93,7 @@ if __name__ == '__main__':
             result_str = ''
             for item in ring:
                 item_str = f"{item.name},{item.age},{item.gender}"
-                result_str += item_str + '\n'            
+                result_str += "{" + item_str + '}; '            
         
         else:
             result_str = 'No data input'
