@@ -65,6 +65,7 @@ if __name__ == '__main__':
 
     reader = []
     result_str = ''
+
     if people_text:
         people_str: List[str] = people_text.split(';')
         for each in people_str:
@@ -90,7 +91,7 @@ if __name__ == '__main__':
             if file_type == 'zip':
                 file_reader = rds.ZipReader(path, file_name)
 
-                reader = file_reader.create_person_from_file()
+            reader = file_reader.create_person_from_file()
         except:
             raise ValueError('Input incorrect path or file_name!')
 
