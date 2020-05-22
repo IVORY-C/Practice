@@ -1,5 +1,5 @@
-from main.shared import reader as rd
-from main.shared import base_class as bc
+from domain.shared import reader as rd
+from domain.shared import base_class as bc
 from typing import List
 
 import csv

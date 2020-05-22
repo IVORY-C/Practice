@@ -1,6 +1,6 @@
-from main.shared import base_class as bc
-from main.use_cases import josephus as jsp
-from main.adapter import readers as rd
+from domain.shared import base_class as bc
+from domain.use_cases import josephus as jsp
+from domain.adapter import readers as rd
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
 

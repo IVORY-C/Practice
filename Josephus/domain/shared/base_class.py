@@ -1,8 +1,10 @@
 class Person(object):
+    INVALID_AGE = -2
     def __init__(self, name: str, age: int, gender: str):
         self.name = name
         self.age = age
         self.gender = gender
+
         if self.age < 0 :
             self.age = -1
 

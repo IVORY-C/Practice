@@ -7,3 +7,5 @@ class Reader:
 
     def close_file(self):
         raise NotImplementedError
+
+    
