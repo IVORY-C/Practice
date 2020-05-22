@@ -1,11 +1,11 @@
-from main.use_cases import josephus as jsp
-from main.adapter import readers as rds
-from main.shared import base_class as bc
+from domain.use_cases import josephus as jsp
+from domain.adapter.readers import readers as rds
+from domain.shared import base_class as bc
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
 from typing import List
 
-class test_ui():
+class TestUI():
     def __init__(self):
         self.window = QMainWindow()
         self.window.resize(500, 400)
@@ -94,7 +94,7 @@ class test_ui():
 
 def test_ui_input_and_show_data():
     app = QApplication([])
-    stats = test_ui()
+    stats = TestUI()
     stats.window.show()
     app.exec_()
 

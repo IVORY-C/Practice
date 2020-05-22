@@ -1,4 +1,4 @@
-from main.shared import base_class as bc
+from domain.shared import base_class as bc
 
 def test_base_class():
     test_someone = bc.Person('Andy', 12, 'male')

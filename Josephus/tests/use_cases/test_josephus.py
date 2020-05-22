@@ -1,5 +1,6 @@
-from main.shared import base_class as bc
-from main.use_cases import josephus as jsp
+
+from domain.shared import base_class as bc
+from domain.use_cases import josephus as jsp
 
 
 def test_josephus():

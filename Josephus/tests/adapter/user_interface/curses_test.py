@@ -1,9 +1,9 @@
 import os,sys
 sys.path.append("C:\\Users\\76747\\Desktop\\Python\\practice\\Josephus")
 
-from main.shared import base_class as bc
-from main.adapter import readers as rds
-from main.use_cases import josephus as jsp
+from domain.shared import base_class as bc
+from domain.adapter.readers import readers as rds
+from domain.use_cases import josephus as jsp
 
 import curses
 from curses.textpad import Textbox, rectangle

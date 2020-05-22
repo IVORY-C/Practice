@@ -1,5 +1,5 @@
-from main.adapter import readers as rds
-from main.shared import base_class as bc
+from domain.adapter import readers as rds
+from domain.shared import base_class as bc
 from typing import List
         
 
