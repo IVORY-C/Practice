@@ -66,7 +66,10 @@ if __name__ == '__main__':
     reader = []
     result_str = ''
 
-    if people_text:
+    if people_text and path:
+        result_str = 'Cannot input both people and file path.'
+
+    if people_text and not path:
         try:
             people_str: List[str] = people_text.split(';')
             for each in people_str:
@@ -83,7 +86,7 @@ if __name__ == '__main__':
         except:
             raise ValueError('Input incorrect data of people!')
 
-    if path:
+    if path and not people_text:
         try:
             file_type = file_name.split('.')[1]
 
@@ -106,7 +109,7 @@ if __name__ == '__main__':
 
         for item in ring:
             item_str = f"{item.name},{item.age},{item.gender}"
-            result_str += "{" + item_str + '}; '            
+            result_str += '{' + item_str + '}; '            
     
     else:
         result_str = 'No data input'
