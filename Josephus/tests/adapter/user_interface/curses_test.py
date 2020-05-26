@@ -1,7 +1,7 @@
 import os,sys
 sys.path.append("C:\\Users\\76747\\Desktop\\Python\\practice\\Josephus")
 
-from domain.shared import base_class as bc
+from domain.shared import person as bc
 from domain.adapter.readers import readers as rds
 from domain.use_cases import josephus as jsp
 
