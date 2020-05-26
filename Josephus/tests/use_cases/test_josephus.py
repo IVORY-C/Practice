@@ -32,7 +32,7 @@ def test_josephus_init_with_invalid_reader():
 def test_josephus_init_without_reader():
     ring = jsp.Ring()
 
-    assert ring.start == 0
+    assert ring.start == 1
     assert ring.step == 1
     assert ring._people == []
 

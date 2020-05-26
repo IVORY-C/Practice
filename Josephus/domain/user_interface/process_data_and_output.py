@@ -35,7 +35,7 @@ class ProcessDataAndOutput():
                 try:
                     age = int(data[1])
                 except:
-                    age = -1
+                    age = Person.INVALID_AGE_IS_NOT_INT
                 gender = data[2]
                 reader.append(Person(name, age, gender))
         except:
