@@ -1,5 +1,5 @@
 from domain.shared import reader as rd
-from domain.shared import base_class as bc
+from domain.shared.person import Person
 from typing import List
 
 import csv
@@ -12,7 +12,7 @@ class TxtReader(rd.Reader):
         self.file = open(path, 'r', encoding='utf-8')
         self._all_data = self.file.readlines()
 
-    def create_person_from_file(self) -> List[bc.Person]:
+    def create_person_from_file(self) -> List[Person]:
         people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
@@ -22,7 +22,7 @@ class TxtReader(rd.Reader):
             except ValueError as e:
                 age = -2
             gender = data[2]
-            people.append(bc.Person(name, age, gender))
+            people.append(Person(name, age, gender))
 
         return people   
 
@@ -37,7 +37,7 @@ class CsvReader(rd.Reader):
         self.file = open(path, 'r', encoding='gbk')
         self._all_data = self.file.readlines()
 
-    def create_person_from_file(self) -> List[bc.Person]:
+    def create_person_from_file(self) -> List[Person]:
         people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
@@ -47,7 +47,7 @@ class CsvReader(rd.Reader):
             except ValueError as e:
                 age = -2
             gender = data[2]
-            people.append(bc.Person(name, age, gender))
+            people.append(Person(name, age, gender))
             
         return people  
 
@@ -74,7 +74,7 @@ class ZipReader(rd.Reader):
             self.file = open(file_path, 'r', encoding = encode_standard)
             self._all_data = self.file.readlines()
 
-    def create_person_from_file(self) -> List[bc.Person]:
+    def create_person_from_file(self) -> List[Person]:
         people = []
         for each in self._all_data:
             data = each.strip().replace(' ','').split(',')
@@ -84,7 +84,7 @@ class ZipReader(rd.Reader):
             except ValueError as e:
                 age = -2
             gender = data[2]
-            people.append(bc.Person(name, age, gender))
+            people.append(Person(name, age, gender))
 
         return people   
             
