@@ -2,9 +2,6 @@ import os,sys
 sys.path.append("C:\\Users\\76747\\Desktop\\Python\\practice\\Josephus")
 
 from domain.user_interface.iu_curses import CursesWindow
-from domain.shared import person as bc
-from domain.adapter.readers import readers as rds
-from domain.use_cases import josephus as jsp
 from domain.user_interface.process_data_and_output import ProcessDataAndOutput
 
 if __name__ == '__main__':
