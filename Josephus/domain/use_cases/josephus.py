@@ -3,7 +3,7 @@ import copy
 class Ring:
     '约瑟夫环'
 
-    def __init__(self, reader = None):
+    def __init__(self, reader=None):
         self._people = []
         self._temp = []
         self._id = 0
@@ -11,7 +11,7 @@ class Ring:
         if reader:
             for each in reader:
                 self._people.append(each)
-        self.step = 0
+        self.step = 1
         self.start = 1
 
 
@@ -42,17 +42,3 @@ class Ring:
         raise StopIteration()
    
 
-    # def next_circular(self):
-    #     temp = copy.copy(self._people)
-    #     if len(temp) == 0:
-    #         return None
-
-    #     index = 1
-    #     start = self.start % len(temp)
-    #     temp = temp[start:] + temp[:start]
-
-    #     while index:
-    #         head = (self.step-1) % len(temp)
-    #         temp = temp[head:] + temp[:head]
-    #         index = temp.pop(0)
-    #         yield index
