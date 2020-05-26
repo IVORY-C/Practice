@@ -49,10 +49,15 @@ class UIQt():
         process.people_text = self.people_text.toPlainText()
         process.path = self.path_text.toPlainText()
         process.file_name = self.file_name_text.toPlainText()
-        process.start = self.start_text.toPlainText()
-        process.step = self.step_text.toPlainText()
+        try:
+            start = int(self.start_text.toPlainText())
+            step = int(self.start_text.toPlainText())
+            process.start = start
+            process.step = step
+        except ValueError as e:
+            raise ValueError('Start and step must be integer!')
 
-        result_str = process.output_result_str()
+        result_str = process.output_result_str().replace('; ', '\n')
 
         QMessageBox.about(self.window, 
                     'Result', 
