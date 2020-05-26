@@ -1,5 +1,5 @@
-from domain.adapter import readers as rds
-from domain.shared import base_class as bc
+from domain.adapter.readers import readers as rds
+from domain.shared.person import Person
 from typing import List
 
 import zipfile
@@ -10,8 +10,10 @@ def test_read_zip_file():
     zipreader = rds.ZipReader(path, file_name)
     reader = zipreader.create_person_from_file()
 
-    assert reader[0].name == 'Morty'
-    assert reader[1].name == 'Rick'
-    assert reader[2].age == 16
-    assert reader[3].gender == 'female'
-    assert reader[4].gender == 'male'
+    assert reader == [
+        Person('Morty', 12, 'male'),
+        Person('Rick', 53, 'male'),
+        Person('Summer', 16, 'female'),
+        Person('Beth', 34, 'female'),
+        Person('Jerry', 36, 'male'),
+    ]
