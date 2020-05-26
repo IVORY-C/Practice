@@ -62,6 +62,7 @@ class ProcessDataAndOutput():
             return reader
 
     def create_ring_and_output_result(self, reader):
+        result_str = ''
         if reader:
             ring = jsp.Ring(reader)
             ring.start = self.start
