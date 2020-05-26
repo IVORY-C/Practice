@@ -1,6 +1,7 @@
 from domain.use_cases import josephus as jsp
 from domain.adapter.readers import readers as rds
 from domain.shared.person import Person
+from domain.user_interface.process_data_and_output import ProcessDataAndOutput
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QPlainTextEdit,QMessageBox
 from typing import List
@@ -42,54 +43,20 @@ class UIQt():
 
         self.button.clicked.connect(self.handle_button)
 
-
     def handle_button(self):
-        people = self.people_text.toPlainText()
-        start = self.start_text.toPlainText()
-        step = self.step_text.toPlainText()
-        path = self.path_text.toPlainText()
-        file_name = self.file_name_text.toPlainText()
+        process = ProcessDataAndOutput()
 
-        reader = []
-        result_str = ''
-        if people:
-            for line in people.splitlines():
-                if not line.strip():
-                    continue
-                data = line.split(',')
-                name = data[0]
-                age = int(data[1])
-                gender = data[2]
-                reader.append(Person(name, age, gender)) 
-                
-        if path:
-            file_type = file_name.split('.')[1]
-            if file_type == 'txt':
-                file_reader = rds.TxtReader(path)
-            if file_type == 'csv':
-                file_reader = rds.CsvReader(path)
-            if file_type == 'zip':
-                file_reader = rds.ZipReader(path, file_name)
+        process.people_text = self.people_text.toPlainText()
+        process.path = self.path_text.toPlainText()
+        process.file_name = self.file_name_text.toPlainText()
+        process.start = self.start_text.toPlainText()
+        process.step = self.step_text.toPlainText()
 
-            reader = file_reader.create_person_from_file()
-
-        if reader:
-            ring = jsp.Ring(reader)
-            ring.start = int(start)
-            ring.step = int(step)
-            ring.reset()
-
-            result_str = ''
-            for item in ring:
-                item_str = f"Name:{item.name}, Age:{item.age}, Gender:{item.gender}"
-                result_str += item_str + '\n'            
-        
-        else:
-            result_str = 'No data input'
+        result_str = process.output_result_str()
 
         QMessageBox.about(self.window, 
-                    'Result' , 
-                    f"The result is:\n{result_str}\n start: {start}\n step: {step}")
+                    'Result', 
+                    f"The result is:\n{result_str}\n start: {process.start}\n step: {process.step}")
 
 
 

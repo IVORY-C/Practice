@@ -2,6 +2,9 @@ import os,sys
 sys.path.append("C:\\Users\\76747\\Desktop\\Python\\practice\\Josephus")
 
 from domain.user_interface.iu_curses import CursesWindow
+from domain.shared import person as bc
+from domain.adapter.readers import readers as rds
+from domain.use_cases import josephus as jsp
 
 if __name__ == '__main__':
     win = CursesWindow()
@@ -20,7 +23,7 @@ if __name__ == '__main__':
 
     if people_text and path:
         raise ValueError('Cannot input both people and file path!')
-    
+
     if people_text and not path:
         try:
             people_str = people_text.split(';')
@@ -40,7 +43,7 @@ if __name__ == '__main__':
 
     if path and not people_text:
         try:
-            file_type = file_name.split('.')[1]
+            file_type = path.split('.')[-1]
 
             if file_type == 'txt':
                 file_reader = rds.TxtReader(path)
@@ -60,13 +63,13 @@ if __name__ == '__main__':
         ring.reset()
 
         for item in ring:
-            item_str = f"{item.name},{item.age},{item.gender}"
+            item_str = "{},{},{}".format(item.name, item.age, item.gender)
             result_str += '{' + item_str + '}; '            
     
     else:
         result_str = 'No data input'
 
-    win.display_info(f"The result is:\n{result_str}", 0, 20)
+    win.display_info("The result is:\n{}".format(result_str), 0, 20)
     win.display_info('Press any key to continue...',0 , 29)
     
     win.get_ch_and_continue()
